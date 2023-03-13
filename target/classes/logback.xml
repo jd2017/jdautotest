@@ -22,7 +22,6 @@
     <!--    <logger name="com.lencamo" level="DEBUG" additivity="false">
             <appender-ref ref="Console"/>
         </logger>-->
-
     <!--   2.2、设置root下总的日志打印级别,若是不用大量日志改为warn -->
     <root level="DEBUG">
         <appender-ref ref="Console"/>

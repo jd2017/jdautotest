@@ -1,3 +1,5 @@
+import com.itheima.mapper.UserMapper;
+import com.itheima.pojo.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -8,10 +10,9 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * Mybatis 入门代码
-
+ * Mybatis 代理对象
  */
-public class MyBatisDemo {
+public class MyBatisDemo2 {
     public static void main(String[] args) throws IOException {
         //1，加载mybatis的核心配置文件，获取SQLSessionFactory
         String resource = "mybatis-config.xml";
@@ -19,10 +20,14 @@ public class MyBatisDemo {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
         //2，获取Sqlsession对象，用它来执行sql
-        SqlSession  sqlSession = sqlSessionFactory.openSession();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
 
         //3，执行sql
-        List<Object> users = sqlSession.selectList("com.itheima.mapper.UserMapper.selectAll");
+//        List<Object> users = sqlSession.selectList("test.selectAll");
+        //3.1 获取mapper的代理对象
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        List<User> users = userMapper.selectAll();
+
         System.out.println(users);
 
         // 4，释放资源

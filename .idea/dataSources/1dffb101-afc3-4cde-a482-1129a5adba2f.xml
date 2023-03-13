@@ -900,6 +900,7 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="226" parent="3" name="tb_user"/>
+    <table id="226" parent="3" name="tb_brand"/>
+    <table id="227" parent="3" name="tb_user"/>
   </database-model>
 </dataSource>
