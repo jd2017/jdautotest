@@ -36,11 +36,32 @@
             *
         from tb_brand;
     </select>
-
+    <!--
+        * 参数占位符：
+            1，#{}会将替换为？，为了防止sql注入
+            2，${}拼sql，会存在SQL注入问题
+            3，使用时机：
+                参与传递时：#{}
+                表名和列明不固定的情况下：${}
+         * 参数类型：parameterType：可以省略
+         * 特殊字符处理：
+              1，转移字符
+              2，CDATA区
+    -->
     <select id="selectById"  resultMap="brandResultMap">
         select
             *
-        from tb_brand where id = #{id};
+        from tb_brand where id
+          <![CDATA[
+            <
+          ]]> #{id};
+    </select>
+    <select id="selectByCondition" resultMap="brandResultMap">
+        select *
+        from tb_brand
+        where status = #{status}
+          and company_name like #{companyName}
+          and brand_name like #{brandName};
 
     </select>
 

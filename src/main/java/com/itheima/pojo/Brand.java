@@ -13,7 +13,7 @@ public class Brand {
     // 描述信息
     private String description;
     // 状态：0：禁用，1：启用
-    private String status;
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -55,11 +55,11 @@ public class Brand {
         this.description = description;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
