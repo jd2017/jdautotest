@@ -48,20 +48,41 @@
               1，转移字符
               2，CDATA区
     -->
-    <select id="selectById"  resultMap="brandResultMap">
+    <!--<select id="selectById"  resultMap="brandResultMap">
         select
             *
         from tb_brand where id
           <![CDATA[
             <
           ]]> #{id};
-    </select>
-    <select id="selectByCondition" resultMap="brandResultMap">
-        select *
+    </select>-->
+
+    <!--
+        动态条件查询
+            *if ： 条件判断
+                *test 逻辑表达式；
+             *  问题：
+                * 恒等式所有条件都一样
+                * <where>标签 代替where关键字
+    -->
+    <select id="selectByCondition"  resultMap="brandResultMap">
+        select
+            *
         from tb_brand
-        where status = #{status}
-          and company_name like #{companyName}
-          and brand_name like #{brandName};
+        <!-- where 1=1 -->
+        <where>
+            <if test="status != null">
+               status = #{status}
+            </if>
+            <if test="companyName != null and companyName !='' ">
+                and company_Name like #{companyName}
+            </if>
+            <if test="brandName != null and brandName !=''">
+               and  brand_Name like #{brandName}
+            </if>
+        </where>
+
+
 
     </select>
 

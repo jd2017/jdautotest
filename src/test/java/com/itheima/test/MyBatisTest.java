@@ -66,10 +66,10 @@ public class MyBatisTest {
         brandName = "%"+ brandName +"%";
 
         // 封装对象
-       /* Brand brand = new Brand();
-        brand.setStatus(status);
-        brand.setBrandName(brandName);
-        brand.setCompanyName(companyName);*/
+//        Brand brand = new Brand();
+//        brand.setStatus(status);
+//        brand.setBrandName(brandName);
+//        brand.setCompanyName(companyName);
         Map map = new HashMap();
         map.put("status",status);
         map.put("companyName",companyName);
