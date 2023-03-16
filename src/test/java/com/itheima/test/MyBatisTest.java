@@ -10,7 +10,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyBatisTest {
     @Test
@@ -64,10 +66,14 @@ public class MyBatisTest {
         brandName = "%"+ brandName +"%";
 
         // 封装对象
-        Brand brand = new Brand();
+       /* Brand brand = new Brand();
         brand.setStatus(status);
         brand.setBrandName(brandName);
-        brand.setCompanyName(companyName);
+        brand.setCompanyName(companyName);*/
+        Map map = new HashMap();
+        map.put("status",status);
+        map.put("companyName",companyName);
+        map.put("brandName",brandName);
 
 
         //1,获取SqlSessionFactory
@@ -83,7 +89,8 @@ public class MyBatisTest {
 
         //4，执行方法
 //        List<Brand> brands = brandMapper.selectByCondition(status, companyName, brandName);
-        List<Brand> brands = brandMapper.selectByCondition(brand);
+//        List<Brand> brands = brandMapper.selectByCondition(brand);
+        List<Brand> brands = brandMapper.selectByCondition(map);
         System.out.println(brands);
 
         //5，释放资源
