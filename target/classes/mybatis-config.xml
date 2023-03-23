@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!-- MyBatis 会在包名下面搜索需要的 Java Bean 扫描后下面类名不区分大小写-->
     <typeAliases>
         <package name="com.itheima.pojo"/>
     </typeAliases>
@@ -34,7 +35,7 @@
     <mappers>
         <!--1,加载sql映射文件 -->
         <!--<mapper resource="com/itheima/mapper/UserMapper.xml"/>-->
-        <!--2, mapper 代理方式 -->
+        <!--2, mapper 代理方式，扫描包下面所有映射文件 -->
         <package name="com.itheima.mapper"/>
     </mappers>
 </configuration>
