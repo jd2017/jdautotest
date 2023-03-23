@@ -35,7 +35,7 @@
     <mappers>
         <!--1,加载sql映射文件 -->
         <!--<mapper resource="com/itheima/mapper/UserMapper.xml"/>-->
-        <!--2, mapper 代理方式 -->
+        <!--2, mapper 代理方式，扫描包下面所有映射文件 -->
         <package name="com.itheima.mapper"/>
     </mappers>
 </configuration>

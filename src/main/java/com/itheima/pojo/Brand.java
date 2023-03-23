@@ -9,7 +9,7 @@ public class Brand {
     // 企业名称
     private String companyName;
     // 排序字段
-    private String ordered;
+    private Integer ordered;
     // 描述信息
     private String description;
     // 状态：0：禁用，1：启用
@@ -39,11 +39,11 @@ public class Brand {
         this.companyName = companyName;
     }
 
-    public String getOrdered() {
+    public Integer getOrdered() {
         return ordered;
     }
 
-    public void setOrdered(String ordered) {
+    public void setOrdered(Integer ordered) {
         this.ordered = ordered;
     }
 

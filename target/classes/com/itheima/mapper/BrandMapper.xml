@@ -15,6 +15,23 @@
                 2.2 在<select> 标签中，使用resultMap属性替换 resultType属性；
     -->
     <!--
+        sql 片段
+    -->
+    <!--   <sql id="brand_column">
+           id, brand_name as brandName, company_name as companyName,ordered, description, status
+       </sql>
+       <select id="selectAll" resultType="Brand">
+           select
+               <include refid="brand_column"/>
+           from tb_brand;
+       </select>-->
+
+    <!--<select id="selectAll" resultType="Brand">-->
+    <!--select * from tb_brand;-->
+    <!--</select>-->
+
+
+    <!--
         id :唯一标识
         type：映射的类型：支持别名
     -->
@@ -48,21 +65,20 @@
               1，转移字符
               2，CDATA区
     -->
-    <!--<select id="selectById"  resultMap="brandResultMap">
+    <select id="selectById"  resultMap="brandResultMap">
         select
             *
         from tb_brand where id
           <![CDATA[
-            <
+            =
           ]]> #{id};
-    </select>-->
-
+    </select>
     <!--
         动态条件查询
             *if ： 条件判断
                 *test 逻辑表达式；
              *  问题：
-                * 恒等式
+                * 恒等式所有条件都一样
                 * <where>标签 代替where关键字
     -->
     <select id="selectByCondition"  resultMap="brandResultMap">
@@ -81,27 +97,73 @@
                and  brand_Name like #{brandName}
             </if>
         </where>
-
-
-
     </select>
-
-
-    <!--
-        sql 片段
-    -->
- <!--   <sql id="brand_column">
-        id, brand_name as brandName, company_name as companyName,ordered, description, status
-    </sql>
-    <select id="selectAll" resultType="Brand">
+    <select id="selectByConditionSingle" resultMap="brandResultMap">
         select
-            <include refid="brand_column"/>
-        from tb_brand;
-    </select>-->
+        *
+        from tb_brand
+        <where>
+            <choose>  <!--  相当于switch语句-->
+                <when test="status != null">  <!--相当于case -->
+                    status = #{status}
+                </when>
+                <when test="companyName != null and companyName !='' ">
+                    company_Name like #{companyName}
+                </when>
+                <when test="brandName != null and brandName != '' ">
+                    brand_Name like #{brandName}
+                </when>
+                <!--
+                <otherwise>  类似于default
+                   1=1
+                </otherwise>
+                -->
+            </choose>
+        </where>
+    </select>
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_brand(brand_name,company_name,ordered,description,status)
+                values (#{brandName},#{companyName},#{ordered},#{description},#{status});
+    </insert>
+    <update id="update">
+        update tb_brand
+        <set>
+            <if test="brandName !=null and brandName !=''">
+                brand_name = #{brandName},
+            </if>
+            <if test="companyName !=null and companyName !=''">
+                company_name = #{companyName},
+            </if>
+            <if test="ordered !=null">
+                ordered = #{ordered},
+            </if>
+            <if test="description !=null and description !=''">
+                description = #{description},
+            </if>
+            <if test="status !=null">
+                status = #{status},
+            </if>
+        </set>
+        where id =#{id};
+    </update>
+    <delete id="deleteById">
+        delete from  tb_brand
+        where id =#{id}
+    </delete>
+    <!--
+        mybatis 会将数组参数，封装为一个Map集合，
+            *默认：array = 数组
+            * 使用@Param注解改变map集合的默认key的名称
+    -->
+    <delete id="deleteByIds">
+      delete from tb_brand where id
+        in
+          <foreach collection="ids" item="id" separator="," open="(" close=")">
+              #{id}
+          </foreach>
+          ;
+    </delete>
 
-    <!--<select id="selectAll" resultType="Brand">-->
-        <!--select * from tb_brand;-->
-    <!--</select>-->
 
 
 
